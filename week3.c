@@ -4,6 +4,7 @@ void FIRST(char[],char );
 void addToResultSet(char[],char);
 int numOfProductions;
 char productionSet[10][10];
+
 int main()
 {
     int i;
@@ -52,39 +53,37 @@ void FIRST(char* Result,char c)
     //If X is non terminal
     //Read each production
     for(i=0;i<numOfProductions;i++)
-    {
-//Find production with X as LHS
+    { //Find production with X as LHS
         if(productionSet[i][0]==c)
-        {
-//If X → ε is a production, then add ε to FIRST(X).
- if(productionSet[i][2]=='$') addToResultSet(Result,'$');
+        { //If X → ε is a production, then add ε to FIRST(X).
+            if(productionSet[i][2]=='$') addToResultSet(Result,'$');
             //If X is a non-terminal, and X → Y1 Y2 … Yk
             //is a production, then add a to FIRST(X)
             //if for some i, a is in FIRST(Yi),
             //and ε is in all of FIRST(Y1), …, FIRST(Yi-1).
-      else
+            else
             {
                 j=2;
                 while(productionSet[i][j]!='\0')
                 {
-                foundEpsilon=0;
-                FIRST(subResult,productionSet[i][j]);
-                for(k=0;subResult[k]!='\0';k++)
-                    addToResultSet(Result,subResult[k]);
-                 for(k=0;subResult[k]!='\0';k++)
-                     if(subResult[k]=='$')
-                     {
-                         foundEpsilon=1;
+                    foundEpsilon=0;
+                    FIRST(subResult,productionSet[i][j]);
+                    for(k=0;subResult[k]!='\0';k++)
+                        addToResultSet(Result,subResult[k]);
+                     for(k=0;subResult[k]!='\0';k++)
+                         if(subResult[k]=='$')
+                         {
+                             foundEpsilon=1;
+                             break;
+                         }
+                     //No ε found, no need to check next element
+                     if(!foundEpsilon)
                          break;
-                     }
-                 //No ε found, no need to check next element
-                 if(!foundEpsilon)
-                     break;
-                 j++;
+                     j++;
                 }
             }
+        }
     }
-}
     return ;
 }
 /* addToResultSet adds the computed
@@ -106,14 +105,10 @@ Enter productions Number 1 : S=ABC
 Enter productions Number 2 : A=bc
 Enter productions Number 3 : B=c
 Enter productions Number 4 : C=e
-
  Find the FIRST of  :S
-
  FIRST(S)= {  b }
 press 'y' to continue : Y
-
  Find the FIRST of  :C
-
  FIRST(C)= {  e }
 press 'y' to continue : N
 */
