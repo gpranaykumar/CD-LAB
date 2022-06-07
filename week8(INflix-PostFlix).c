@@ -1,3 +1,5 @@
+//Write a Program to Convert Infix Expression to Post Expression.
+
 #include<stdio.h>
 #include<ctype.h>
 char stack[100];
