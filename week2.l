@@ -69,3 +69,14 @@ b=2;
 c=a+b;
 printf("Sum:%d",c);
 }
+
+-----------------------------------------------------------
+#include<stdio.h> is a PREPROCESSOR DIRECTIVE
+FUNCTION
+main (
+)
+http://csestudyzone.blogspot.in Page 11BLOCK BEGINS
+int is a KEYWORD
+a IDENTIFIER
+b IDENTIFIER
+BLOCK END
