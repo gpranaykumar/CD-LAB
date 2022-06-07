@@ -1,3 +1,5 @@
+//Write a Program to Compute FIRST of Non-Terminals
+
 #include<stdio.h>
 #include<ctype.h>
 void FIRST(char[],char );
