@@ -35,6 +35,7 @@ void main()
             check();
         }
     }
+    check();
     printf("\n$%s\t%s$",stk,a);
     if(strcmp(stk,"E") == 0){
         printf("\nString Accepted");
@@ -77,7 +78,7 @@ void check()
         {
             stk[z]='E';
             stk[z+1]='\0';
-            stk[z+2]='\0';
+            stk[z+1]='\0';
             printf("\n$%s\t%s$\t%s",stk,a,ac);
             i=i-2;
         }
