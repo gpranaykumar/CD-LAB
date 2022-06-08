@@ -1,107 +1,146 @@
 //4)Write a Program to compute FOLLOW of
 //Non-Terminals
 
-
-#include<stdio.h> 
-#include<string.h>
-#include<ctype.h>
-int n,m=0,p,i=0,j=0;
-char a[10][10],followResult[10];
-void follow(char c);
-void first(char c);
-void addToResult(char);
+#include<stdio.h>
+#define max 10
+#define MAX 15
+void ffun(int,int);
+void fun(int,int[]);
+void follow(int i);
+char array[max][MAX],temp[max][MAX];
+int c,n,t;
+int fun2(int i,int j,int p[],int key)
+{
+    int k;
+    if(!key){
+        for(k=0;k<n;k++)
+            if(array[i][j]==array[k][0])
+                break;
+        p[0]=i;p[1]=j+1;
+        fun(k,p);
+        return 0;
+    }
+    else{
+        for(k=0;k<=c;k++){
+            if(array[i][j]==temp[t][k])
+                break;
+        }
+        if(k>c) return 1;
+        else return 0;
+    }
+}
+void fun(int i,int p[])
+{
+    int j,k,key;
+    for(j=2;array[i][j]!=NULL;j++)
+    {
+        if(array[i][j-1]=='/'){
+            if(array[i][j]>='A'&&array[i][j]<='Z'){
+                key=0;
+                fun2(i,j,p,key);
+            }
+            else{
+                key=1;
+                if(fun2(i,j,p,key))
+                    temp[t][++c]=array[i][j];
+                if(array[i][j]=='@'&&p[0]!=-1){ //taking ,@, as null symbol.
+                    if(array[p[0]][p[1]]>='A'&&array[p[0]][p[1]]<='Z'){
+                        key=0;
+                        fun2(p[0],p[1],p,key);
+                    }
+                    else
+                        if(array[p[0]][p[1]]!='/'&&array[p[0]][p[1]]!=NULL){
+                            if(fun2(p[0],p[1],p,key))
+                                temp[t][++c]=array[p[0]][p[1]];
+                    }
+                }
+            }
+        }
+    }
+}
+char fol[max][MAX],ff[max];int f,l,ff0;
+void follow(int i)
+{
+    int j,k;
+    for(j=0;j<=ff0;j++)
+        if(array[i][0]==ff[j])
+            return;
+    if(j>ff0) ff[++ff0]=array[i][0];
+    if(i==0) fol[l][++f]='$';
+    for(j=0;j<n;j++)
+        for(k=2;array[j][k]!=NULL;k++)
+            if(array[j][k]==array[i][0])
+                ffun(j,k);
+}
+void ffun(int j,int k)
+{
+    int ii,null=0,tt,cc;
+    if(array[j][k+1]=='/'||array[j][k+1]==NULL)
+        null=1;
+    for(ii=k+1;array[j][ii]!='/'&&array[j][ii]!=NULL;ii++){
+        if(array[j][ii]<='Z'&&array[j][ii]>='A')
+        {
+            for(tt=0;tt<n;tt++)
+                if(temp[tt][0]==array[j][ii])   break;
+            for(cc=1;temp[tt][cc]!=NULL;cc++)
+            {
+                if(temp[tt][cc]=='@') null=1;
+                else fol[l][++f]=temp[tt][cc];
+            }
+        }
+        else fol[l][++f]=array[j][ii];
+    }
+    if(null)follow(j);
+}
 int main()
 {
- int i;
- int choice;
- char c,ch;
- printf("Enter the no.of productions: ");
-scanf("%d", &n);
- printf(" Enter %d productions\nProduction with multiple terms should be give as separate productions \n", n);
- for(i=0;i<n;i++)
-  scanf("%s%c",a[i],&ch);
-    // gets(a[i]);
- do
- {
-  m=0;
-  printf("Find FOLLOW of -->");
-  scanf(" %c",&c);
-  follow(c);
-  printf("FOLLOW(%c) = { ",c);
-  for(i=0;i<m;i++)
-   printf("%c ",followResult[i]);
-  printf(" }\n");
-  printf("Do you want to continue(Press 1 to continue....)?");
- scanf("%d%c",&choice,&ch);
- }
- while(choice==1);
+    int p[2],i,j;
+    printf("Enter the no. of productions :");
+    scanf("%d",&n);
+    printf("Enter the productions :\n");
+    for(i=0;i<n;i++)
+        scanf("%s",array[i]);
+    for(i=0,t=0;i<n;i++,t++){
+        c=0,p[0]=-1,p[1]=-1;
+        temp[t][0]=array[i][0];
+        fun(i,p);
+        temp[t][++c]=NULL;
+        printf("First(%c) : [ ",temp[t][0]);
+        for(j=1;j<c;j++)
+            printf("%c,",temp[t][j]);
+        printf("\b ].\n");
+    }
+    /* Follow Finding */
+    for(i=0,l=0;i<n;i++,l++)
+    {
+        f=-1;ff0=-1;
+        fol[l][++f]=array[i][0];
+        follow(i);
+        fol[l][++f]=NULL;
+    }
+    for(i=0;i<n;i++)
+    {
+        printf("\nFollow[%c] : [ ",fol[i][0]);
+        for(j=1;fol[i][j]!=NULL;j++)
+        printf("%c,",fol[i][j]);
+        printf("\b ]");
+    }
+    return 0;
 }
-void follow(char c)
-{
-    if(a[0][0]==c)addToResult('$');
- for(i=0;i<n;i++)
- {
-  for(j=2;j<strlen(a[i]);j++)
-  {
-   if(a[i][j]==c)
-   {
-    if(a[i][j+1]!='\0')first(a[i][j+1]);
-    if(a[i][j+1]=='\0'&&c!=a[i][0])
-     follow(a[i][0]);
-   }
-  }
- }
-}
-void first(char c)
-{
-      int k;
-                 if(!(isupper(c)))
-                     //f[m++]=c;
-                     addToResult(c);
-                 for(k=0;k<n;k++)
-                 {
-                 if(a[k][0]==c)
-                 {
-                 if(a[k][2]=='$') follow(a[i][0]);
-                 else if(islower(a[k][2]))
-                     //f[m++]=a[k][2];
-                     addToResult(a[k][2]);
-                 else first(a[k][2]);
-                 }
-                 }
-}
-void  addToResult(char c)
-{
-    int i;
-    for( i=0;i<=m;i++)
-        if(followResult[i]==c)
-            return;
-   followResult[m++]=c;
-}
-
 
 
 /*
 Output:
-Enter the number of productions: 6
-Enter the productions:
-S/aBDh
-B/cC
-C/bc/@
-D/E/F
-E/g/@
-F/f/@
-First(S) : [a]
-First(B) : [c]
-First(C) : [b,@]
-First(D) : [g,@,f]
-First(E) : [g,@]
-First(F) : [f,@]
-Follow(S): [$]
-Follow(B): [g,h,f,$]
-Follow(C): [g,f,h,$]
-Follow(D): [h]
-Follow(E): [h]
-Follow(F): [h]
+Enter the no. of productions :3
+Enter the productions :
+S/ABC
+A/a
+B/c 
+First(S) : [ a ].
+First(A) : [ a ].
+First(B) : [ c ].
 
+Follow[S] : [ $ ]
+Follow[A] : [ c ]
+Follow[B] : [ ]
 */
