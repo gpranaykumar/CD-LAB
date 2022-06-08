@@ -37,5 +37,12 @@ int main()
 
 /*
 z=a+b*c+d
-
+OUTPUT:
+Enter the expression
+z=a+b*c+d        
+3address code
+A=b*c
+B=a+A
+C=B+d
+z=C
 */
