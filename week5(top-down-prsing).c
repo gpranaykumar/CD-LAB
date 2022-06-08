@@ -83,5 +83,8 @@ int main(){
 
 /*
 input: (a+b)*c
+OUTPUT:
+Enter the string to be checked: (a+b)*c
 
+String is accepted
 */
