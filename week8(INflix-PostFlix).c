@@ -58,3 +58,8 @@ int main()
     }
     return 0;
 }
+/*
+OUTPUT:
+Enter the expression : a+b*c+d
+a b c * + d +
+*/
