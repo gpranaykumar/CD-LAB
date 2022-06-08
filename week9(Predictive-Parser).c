@@ -84,3 +84,26 @@ void main(){
         printf("String is not Accepted");
     }
 }
+/*
+OUTPUT:
+
+$e      i+i*i$
+$Et     i+i*i$
+$ETf    i+i*i$
+$ET     i+i*i$
+$ET      +i*i$
+$E       +i*i$
+$Et      +i*i$
+$Et       i*i$
+$ETf      i*i$
+$ET       i*i$
+$ET        *i$
+$ETf       *i$
+$ETf        i$
+$ET         i$
+$ET          $
+$E           $
+$ $ 
+ String is Accepted
+
+*/
