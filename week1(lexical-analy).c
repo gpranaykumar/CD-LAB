@@ -59,4 +59,19 @@ num2=6;
 return 0;
 }
 
+OUTPUT:
+int is keyword
+main is identifier
+int is keyword
+num1 is identifier
+num2 is identifier
+num1 is identifier
+= is operator
+4 is identifier
+num2 is identifier
+= is operator
+6 is identifier
+return is keyword
+0 is identifier
+
 */
